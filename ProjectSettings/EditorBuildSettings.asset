@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/ML-Agents/Examples/3DBall/3DBall.unity
     guid: 6f62a2ccb3830437ea4e85a617e856b3
-  - enabled: 1
+  - enabled: 0
     path: Assets/UnityMLHack/3DBallJB/3DBallJB.unity
     guid: ee48d168a06bfc444bf474b37c031d8b
+  - enabled: 1
+    path: Assets/ML-Agents/Examples/PushBlock/Scenes/PushBlock.unity
+    guid: ae8cc75939e3e4d07a79c8c6a08b54f4
   m_configObjects: {}
