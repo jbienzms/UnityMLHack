@@ -709,7 +709,7 @@
     <Compile Include="Assets\ML-Agents\Scripts\ResetParameters.cs" />
     <Compile Include="Assets\ML-Agents\Scripts\UnityAgentsException.cs" />
     <Compile Include="Assets\UnityMLHack\3DBallJB\Ball3DAgentJB.cs" />
-    <Compile Include="Assets\UnityMLHack\Common\TrainingDuplicator.cs" />
+    <Compile Include="Assets\UnityMLHack\TrainingHelper\TrainingDuplicator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.package-manager-ui@1.8.2\Editor\Resources\Styles\Main_Dark.uss" />

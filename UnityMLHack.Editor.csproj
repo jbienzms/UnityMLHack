@@ -711,7 +711,7 @@
     <Compile Include="Assets\ML-Agents\Editor\BrainEditor.cs" />
     <Compile Include="Assets\ML-Agents\Editor\MLAgentsEditModeTest.cs" />
     <Compile Include="Assets\ML-Agents\Editor\ResetParameterDrawer.cs" />
-    <Compile Include="Assets\UnityMLHack\Common\Editor\TrainingDuplicatorEditor.cs" />
+    <Compile Include="Assets\UnityMLHack\TrainingHelper\Editor\TrainingDuplicatorEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.package-manager-ui@1.8.2\Editor\Resources\Styles\Main_Dark.uss" />
