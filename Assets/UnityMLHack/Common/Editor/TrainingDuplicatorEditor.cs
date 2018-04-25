@@ -6,7 +6,7 @@ using UnityEngine;
 [CustomEditor(typeof(TrainingDuplicator))]
 public class TrainingDuplicatorEditor : Editor
 {
-    public virtual void OnInspectorGUI()
+    public override void OnInspectorGUI()
     {
         if (DrawDefaultInspector())
         {

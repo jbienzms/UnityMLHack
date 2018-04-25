@@ -31,6 +31,21 @@ public class TrainingDuplicator : MonoBehaviour
     public float StackSpacing = 5f;
     #endregion // Unity Inspector Variables
 
+    static private void SafeDestroy(GameObject obj)
+    {
+        if (obj != null)
+        {
+            if (Application.isEditor)
+            {
+                Object.DestroyImmediate(obj);
+            }
+            else
+            {
+                Object.Destroy(obj);
+            }
+        }
+    }
+
     #region Internal Methods
     public void ClearInstances()
     {
@@ -47,7 +62,7 @@ public class TrainingDuplicator : MonoBehaviour
                 UnityEngine.Object childPrefab = PrefabUtility.GetPrefabParent(child);
                 if (childPrefab == AgentPrefab)
                 {
-                    child.SafeDestroy();
+                    SafeDestroy(child);
                 }
             }
         }
@@ -58,7 +73,7 @@ public class TrainingDuplicator : MonoBehaviour
         for (int i=transform.childCount-1; i >=0; i--)
         {
             count++;
-            transform.GetChild(i).gameObject.SafeDestroy();
+            SafeDestroy(transform.GetChild(i).gameObject);
         }
         Debug.Log($"Destroyed {count} object(s)");
     }
@@ -73,37 +88,19 @@ public class TrainingDuplicator : MonoBehaviour
 
         // Generate new
         var count = 1;
-        Vector3 Cursor = new Vector3();
+        float totalWidth = Columns * ColumnSpacing;
+        float totalDepth = Rows * RowSpacing;
+        float totalHeight = Stacks * StackSpacing;
+
+        // Initial Position
+        Vector3 Cursor = new Vector3(-((totalWidth/2f) - (ColumnSpacing/2f)), 0, -((totalDepth / 2f) - (RowSpacing/2f)));
 
         for (var y=0; y < Stacks; y++)
         {
-            Cursor.y = y * StackSpacing; // No below, only grows in height
-
             for (var z=0; z < Rows; z++)
             {
-                // Even or odd?
-                if ((z > 0) && (z % 2 == 0))
-                {
-                    Cursor.z = -((z - 1) * RowSpacing);
-                }
-                else
-                {
-                    Cursor.z = z * RowSpacing;
-                }
-
-
                 for (var x=0; x < Columns; x++)
                 {
-                    // Even or odd?
-                    if ((x > 0) && (x % 2 == 0))
-                    {
-                        Cursor.x = -((x - 1) * ColumnSpacing);
-                    }
-                    else
-                    {
-                        Cursor.x = x * ColumnSpacing;
-                    }
-
                     var env = Instantiate(AgentPrefab, Cursor, Quaternion.identity);
                     env.transform.SetParent(transform, worldPositionStays: false);
                     env.name = "Environment" + count;
@@ -111,8 +108,24 @@ public class TrainingDuplicator : MonoBehaviour
 
                     var agentScript = env.GetComponentInChildren<Agent>();
                     agentScript.GiveBrain(Brain);
+
+                    // Grow Column
+                    Cursor.x += ColumnSpacing;
                 }
+
+                // Grow Row
+                Cursor.z += RowSpacing;
+
+                // Reset Column
+                Cursor.x = -((totalWidth / 2f) - (ColumnSpacing / 2f));
             }
+
+            // Grow Height
+            Cursor.y += StackSpacing;
+
+            // Reset Column and Row
+            Cursor.x = -((totalWidth / 2f) - (ColumnSpacing / 2f));
+            Cursor.z = -((totalDepth / 2f) - (RowSpacing / 2f));
         }
     }
     #endregion // Internal Methods
